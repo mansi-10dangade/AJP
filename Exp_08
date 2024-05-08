@@ -1,0 +1,85 @@
+//client.java
+package p8;
+
+import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+public class Client {
+
+    public static void main(String[] args) {
+        try {
+            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+            PrintI obj = (PrintI) registry.lookup("PrintService");
+            // Your remaining code for interacting with the remote object goes here
+        } catch (Exception e) {
+            System.out.println("Client exception: " + e.toString());
+            e.printStackTrace();
+        }
+    }
+}
+
+printC.java
+package p8;
+import java.util.*;
+import java.rmi.*;
+import java.rmi.server.UnicastRemoteObject;
+
+public class PrintC  extends UnicastRemoteObject implements PrintI{
+     protected PrintC() throws RemoteException
+     {
+    	 super();
+    	 
+     }
+
+	@Override
+	public String stringOpeations(String input) throws RemoteException {
+		String result = "Original string " + input + "\n";
+		result += "1. To Uppercase: " + input.toUpperCase() +"\n";
+		result += "2. To Lowercase: " + input.toLowerCase() +"\n";
+		result += "3. length: " + input.length() +"\n";
+		result += "4. Reversed: " +new StringBuilder(input).reverse().toString() +"\n";
+		result += "5. concatenated: " + input.concat("College") +"\n";
+	    return result;
+	}
+}
+//printI.java
+package p8;
+import java.rmi.*;
+
+
+public interface PrintI  extends Remote{
+
+	String stringOpeations(String input)throws RemoteException;
+}
+
+}
+
+
+server.java
+package p8;
+import java.rmi.*;
+import java.rmi.registry.*;
+import java.util.*;
+import java.rmi.RemoteException;
+
+public class Server {
+
+	public static void main(String[] args) {
+		try {
+			
+			PrintC obj2 = (PrintC) Naming.lookup("rmi://localhost:1024/PrintService");
+			Registry r2 = LocateRegistry.getRegistry("localhost", 1024);
+		    r2.rebind("PrintService",obj2);
+		    System.out.println("Server is ready to accept requests");
+		}
+		catch(Exception e)
+		{
+			System.out.println("Server exception " +e.toString());
+			e.printStackTrace();
+		}
+
+	}
+
+}
+
