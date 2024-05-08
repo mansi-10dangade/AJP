@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .profile-img {
+            max-width: 200px;
+            border-radius: 50%;
+        }
+        .profile-info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Portfolio</h1>
+        <div class="profile-info">
+            <!-- Student Information -->
+            <% String studentName = "Mansi Dangade"; %>
+            <% String studentMajor = "Electronics and Telecommunication"; %>
+            <% int studentYear = 3; %>
+            <% String studentEmail = "mansidangade8@gmail.com"; %>
+            
+            <!-- Display Student Information -->
+            <h2><%= studentName %></h2>
+            <p>Major: <%= studentMajor %></p>
+            <p>Year: <%= studentYear %></p>
+            <p>Email: <a href="mailto:<%= studentEmail %>"><%= studentEmail %></a></p>
+        </div>
+        
+        <!-- Projects Section -->
+        <h2>Projects</h2>
+        <ul>
+            <!-- Project 1 -->
+            <% String project1Name = "Shadow Share Website"; %>
+            <% String project1Description = "Share thoughts on website made using HTML, CSS, and JavaScript, MongoDB."; %>
+            <li><strong><%= project1Name %></strong>: <%= project1Description %></li>
+            
+            <!-- Project 2 -->
+            <% String project2Name = "Fortune Teller"; %>
+            <% String project2Description = "A Java Application using AWT/Swing components which tells future based on birth date and year randomly."; %>
+            <li><strong><%= project2Name %></strong>: <%= project2Description %></li>
+        </ul>
+        
+        <!-- Skills Section -->
+        <h2>Skills</h2>
+        <ul>
+            <!-- Skill 1 -->
+            <% String skill1 = "Java"; %>
+            <li><%= skill1 %></li>
+            
+            <!-- Skill 2 -->
+            <% String skill2 = "HTML/CSS/JavaScript"; %>
+            <li><%= skill2 %></li>
+        </ul>
+        
+        <!-- Footer -->
+        <footer>
+            <hr>
+            <p>&copy; 2024 Portfolio</p>
+        </footer>
+    </div>
+</body>
+</html>
