@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Simple Calculator</title>
+</head>
+<body>
+	<h2>simple Calculator</h2>
+	<form action="calculate" method="post"
+	<label for ="num1">Number 1:</label>
+	<input type="number" id="num1" name="num1" required><br>
+	
+	<label for ="num2">Number 2:</label>
+	<input type="number" id="num2" name="num2" required><br>
+	
+	<label for ="operation">Operation:</label>
+	<select id="operation" name="operation">
+		<option value="add">Addition</option>
+		<option value="Subtract">Subtraction</option>
+		<option value="multiply">Multiplication</option>
+	    <option value="Divide">Division</option>
+	</select><br>
+	
+	<button type="submit">Calculate</button>
+	</form>
+	
+</body>
+</html>
+
+web.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" id="WebApp_ID" version="5.0">
+  <display-name>Calculator_using_Servlet</display-name>
+  <servlet>
+    <servlet-name>CalculatorServlet</servlet-name>
+    <servlet-class>com.example.servlet.CalculatorServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CalculatorServlet</servlet-name>
+    <url-pattern>/calculate</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Calculator_Servlet</display-name>
+    <servlet-name>Calculator_Servlet</servlet-name>
+    <servlet-class>example.servlet.Calculator_Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Calculator_Servlet</servlet-name>
+    <url-pattern>/Calculator_Servlet</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+
+
+servlet.java
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class Calculator_Servlet extends HttpServlet {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int num1=Integer.ParseInt(request.getParameter("num1"));
+		int num2=Integer.parseInt(request.getParameter("num2"));
+		String operation =  request.getParameter("operation");
+		
+		int result=0;
+		String msg="";
+		switch(operation) {
+		case "add":
+			result=num1+num2;
+			msg="result: "+num1+ "+" +num2+ "=" +result;
+			break;
+			
+		case "Subtract":
+			result=num1-num2;
+			msg="result: "+num1+ "-" +num2+ "=" +result;
+			break;
+			
+		case "Mutilpy":
+			result=num1*num2;
+			msg="result: "+num1+ "*" +num2+ "=" +result;
+			break;
+			
+		case "Divide":
+			if(num2!=0) {
+				result=num1/num2;
+				msg="result: "+num1+ "/" +num2+ "=" +result;
+			}
+			else
+			{
+				msg="Error! can't divide by zero";
+			}
+			
+			break;
+			default:
+				msg="Invalid Operation";
+				break;
+			
+			
+			
+		}
+		
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<html><body>");
+		out.println("<h2>Calculator Result</h2>");
+		out.println("<p>" + message +"</p>");
+		out.println("</body></html>");
+	}
+
+}
+
+
